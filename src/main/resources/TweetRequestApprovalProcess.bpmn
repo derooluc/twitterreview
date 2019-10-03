@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1x6sh6x" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.3.4">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1x6sh6x" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.1.0">
   <bpmn:collaboration id="Collaboration_1rw4mjy">
     <bpmn:participant id="Participant_Mitarbeiter" name="Mitarbeiter" processRef="Process_1qparw9" />
     <bpmn:participant id="Participant_Kommunikationsabteilung" name="Kommunikationsabteilung" processRef="Process_08fic1u" />
@@ -102,9 +102,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_06nz0al" sourceRef="IntermediateCatchEvent_UberarbeiteterAntragEingetroffen" targetRef="ExclusiveGateway_0akvtzb" />
     <bpmn:sequenceFlow id="SequenceFlow_1kyg7yr" sourceRef="ExclusiveGateway_0akvtzb" targetRef="Task_TweetAnfragePrufen" />
     <bpmn:sequenceFlow id="SequenceFlow_02nq779" sourceRef="Task_TweetAnfragePrufen" targetRef="ExclusiveGateway_Prufergebnis" />
-    <bpmn:sequenceFlow id="SequenceFlow_ZuUberarbeiten" name="Zu überarbeiten" sourceRef="ExclusiveGateway_Prufergebnis" targetRef="ExclusiveGateway_155ajm3">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${checkResult == revisable}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_ZuUberarbeiten" name="Zu überarbeiten" sourceRef="ExclusiveGateway_Prufergebnis" targetRef="ExclusiveGateway_155ajm3" />
     <bpmn:sequenceFlow id="SequenceFlow_1a8namc" sourceRef="StartEvent_ZuPrufendeTweetAnfrageErhalten" targetRef="ExclusiveGateway_0akvtzb" />
     <bpmn:sequenceFlow id="SequenceFlow_095yklo" sourceRef="ExclusiveGateway_155ajm3" targetRef="IntermediateCatchEvent_UberarbeiteterAntragEingetroffen" />
     <bpmn:eventBasedGateway id="ExclusiveGateway_155ajm3">
@@ -118,9 +116,7 @@
       <bpmn:outgoing>SequenceFlow_ZuUberarbeiten</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_AbgelehntOderGenehmigt</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_AbgelehntOderGenehmigt" name="Abgelehnt oder genehmigt" sourceRef="ExclusiveGateway_Prufergebnis" targetRef="IntermediateThrowEvent_1d2s228">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${checkResult == accepted}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_AbgelehntOderGenehmigt" name="Abgelehnt oder genehmigt" sourceRef="ExclusiveGateway_Prufergebnis" targetRef="IntermediateThrowEvent_1d2s228" />
     <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_UberarbeiteterAntragEingetroffen" name="Überarbeiteter Antrag eingetroffen">
       <bpmn:incoming>SequenceFlow_095yklo</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_06nz0al</bpmn:outgoing>
@@ -181,7 +177,7 @@
         <bpmn:flowNodeRef>Task_TweetAnfragePrufen1</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEvent_TweetAnfrageEingereicht" name="Tweet erfassen" camunda:asyncAfter="true">
+    <bpmn:startEvent id="StartEvent_TweetAnfrageEingereicht" name="Tweet-Anfrage eingereicht" camunda:asyncAfter="true">
       <bpmn:outgoing>SequenceFlow_0f0qcdv</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0f0qcdv" sourceRef="StartEvent_TweetAnfrageEingereicht" targetRef="Task_BenutzerinformationenAuslesen" />
@@ -192,7 +188,7 @@
       <bpmn:outgoing>SequenceFlow_1t9dpba</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="SequenceFlow_0v414r7" sourceRef="ExclusiveGateway_0z4fveq" targetRef="Task_AufVerboteneWorterPrufen" />
-    <bpmn:task id="Task_TweetAnfrageUberarbeiten" name="Tweet überarbeiten">
+    <bpmn:task id="Task_TweetAnfrageUberarbeiten" name="Tweet-Anfrage überarbeiten">
       <bpmn:incoming>SequenceFlow_ZuUberarbeiten1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0rqrc7j</bpmn:outgoing>
     </bpmn:task>
@@ -229,7 +225,7 @@
       <bpmn:incoming>SequenceFlow_0nfldsz</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_00bdf3s</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:endEvent id="EndEvent_TweetAnfrageBehandelt" name="Tweet-Anfrage erledigt">
+    <bpmn:endEvent id="EndEvent_TweetAnfrageBehandelt" name="Tweet-Anfrage behandelt">
       <bpmn:incoming>SequenceFlow_00bdf3s</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:task id="Task_TweetSenden" name="Tweet senden">
@@ -434,7 +430,7 @@
       <bpmndi:BPMNShape id="StartEvent_13gamqw_di" bpmnElement="StartEvent_TweetAnfrageEingereicht">
         <dc:Bounds x="233" y="467" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="215" y="510" width="75" height="14" />
+          <dc:Bounds x="216" y="510" width="71" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_02nab0b_di" bpmnElement="Task_BenutzerinformationenAuslesen">
@@ -556,7 +552,7 @@
       <bpmndi:BPMNShape id="EndEvent_1qso3em_di" bpmnElement="EndEvent_TweetAnfrageBehandelt">
         <dc:Bounds x="1478" y="600" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1461" y="643" width="72" height="27" />
+          <dc:Bounds x="1461" y="643" width="71" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_00bdf3s_di" bpmnElement="SequenceFlow_00bdf3s">
